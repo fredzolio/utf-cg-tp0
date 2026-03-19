@@ -241,14 +241,14 @@
 
       document.querySelectorAll('.float-target').forEach(function(el) {
         var r  = el.getBoundingClientRect();
-        var vx = (Math.random() - 0.5) * 16;
-        var vy = (Math.random() - 0.5) * 16;
-        if (Math.abs(vx) < 4) vx = vx < 0 ? -4.5 : 4.5;
-        if (Math.abs(vy) < 4) vy = vy < 0 ? -4.5 : 4.5;
+        var vx = (Math.random() - 0.5) * 4;
+        var vy = (Math.random() - 0.5) * 4;
+        if (Math.abs(vx) < 1) vx = vx < 0 ? -1.2 : 1.2;
+        if (Math.abs(vy) < 1) vy = vy < 0 ? -1.2 : 1.2;
         el.style.cssText += ';position:fixed;left:' + r.left + 'px;top:' + r.top +
           'px;width:' + r.width + 'px;margin:0;z-index:100;transition:none;transform-origin:center;';
         objects.push({ el: el, x: r.left, y: r.top, w: r.width, h: r.height,
-                       vx: vx, vy: vy, rot: 0, av: (Math.random() - 0.5) * 3.2 });
+                       vx: vx, vy: vy, rot: 0, av: (Math.random() - 0.5) * 0.6 });
       });
 
       document.body.classList.add('gravity-off');
