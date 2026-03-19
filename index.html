@@ -4,292 +4,300 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frederico Zolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="container">
-    <header>
-      <h1 class="float-target">Frederico Zolio</h1>
-      <p class="subtitle float-target">Estudante de Engenharia da Computação &middot; Desenvolvedor &middot; Humano</p>
-    </header>
 
-    <div class="divider"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
 
-    <section class="about">
-      <img id="profilePhoto" class="float-target" src="public/img/frederico.png" alt="Foto de Frederico Zolio">
+  <!-- Bounce counter (gravity mode) -->
+  <div id="bounceCounter" class="bounce-counter">
+    <span class="count" id="bounceCount">0</span>
+    <span class="blabel">BOUNCES</span>
+  </div>
 
-      <p class="float-target">
-        Olá! Sou o Frederico, estudante de Engenharia da Computação no CEFET-MG e,
-        de alguma forma ainda não totalmente explicada pela ciência, também
-        Tech Lead Software Engineer. Isso significa que de manhã estudo teoria
-        dos grafos, e à tarde arquiteto APIs que atendem ~6 milhões de cariocas
-        na Prefeitura do Rio. A vida universitária é... intensa.
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+
+    <div class="hero-eyebrow">
+      <span class="mono">[ID_001]</span>
+      <span class="status-dot">&#x25CF; ONLINE</span>
+    </div>
+
+    <h1 class="display-name float-target">
+      <span class="name-first">FREDERICO</span>
+      <span class="name-last">ZOLIO</span>
+    </h1>
+
+    <div class="hero-body">
+
+      <!-- Photo -->
+      <div class="photo-wrap float-target" id="profilePhoto">
+        <img src="public/img/frederico.png" alt="Frederico Zolio">
+        <div class="scan-lines" aria-hidden="true"></div>
+        <div class="corner tl" aria-hidden="true"></div>
+        <div class="corner tr" aria-hidden="true"></div>
+        <div class="corner bl" aria-hidden="true"></div>
+        <div class="corner br" aria-hidden="true"></div>
+        <div class="photo-coords">
+          <span class="mono">LAT&nbsp;19&deg;55&prime;S</span>
+          <span class="mono">LNG&nbsp;43&deg;56&prime;O</span>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="hero-text">
+        <p class="hero-role float-target">
+          Tech&nbsp;Lead &nbsp;&bull;&nbsp; Co-Founder &nbsp;&bull;&nbsp; Estudante
+        </p>
+        <p class="hero-school float-target">
+          Engenharia da Computa&ccedil;&atilde;o &mdash; CEFET-MG
+        </p>
+        <div class="hero-divider float-target"></div>
+        <p class="hero-bio float-target">
+          Sou o Frederico. De manh&atilde; estudo teoria dos grafos no CEFET-MG; &agrave; tarde
+          arquiteto APIs que atendem <span class="hl">~6 milh&otilde;es</span> de cariocas
+          na Prefeitura do Rio. A ci&ecirc;ncia ainda n&atilde;o explicou como isso &eacute; poss&iacute;vel.
+        </p>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ═══ MAIN ═══ -->
+  <main>
+
+    <!-- Perfil -->
+    <section class="section">
+      <div class="section-header float-target">
+        <span class="mono section-num">[02]</span>
+        <span class="section-title">PERFIL</span>
+        <div class="section-rule"></div>
+      </div>
+
+      <p class="body-text float-target">
+        Atualmente no IplanRio e co-fundador da Vizo, passo meu tempo construindo agentes
+        de IA com mem&oacute;ria ativa, orquestrando containers no Kubernetes e tentando convencer
+        LLMs a n&atilde;o inventarem respostas. Python, Go e Node.js s&atilde;o meu dialeto nativo
+        &mdash; junto com o portugu&ecirc;s, claro.
       </p>
-
-      <p class="float-target">
-        Atualmente no IplanRio e co-fundador da Vizo, passo meu tempo construindo
-        agentes de IA com memória ativa, orquestrando containers no Kubernetes e
-        tentando convencer LLMs a não inventarem respostas. Python, Go e Node.js
-        são meu dialeto nativo — junto com o português, claro.
-      </p>
-
-      <p class="float-target">
-        Antes de entrar no mundo dos shaders e WebGL nessa matéria, já passei por
-        desenvolvimento de jogos em Unity/C#, segurança cibernética e até
-        vendas em empresa júnior. Meu próximo desafio é transformar vértices
-        e fragmentos em algo que faça o professor dar 10.
+      <p class="body-text float-target">
+        Antes de entrar no mundo dos shaders e WebGL nessa mat&eacute;ria, j&aacute; passei por
+        desenvolvimento de jogos em Unity/C#, seguran&ccedil;a cibern&eacute;tica e at&eacute; vendas em
+        empresa j&uacute;nior. Poliglota em idiomas (PT, EN, ES) e em linguagens de
+        programa&ccedil;&atilde;o &mdash; meu pr&oacute;ximo desafio &eacute; transformar v&eacute;rtices e fragmentos em
+        algo que fa&ccedil;a o professor dar 10.
       </p>
     </section>
 
-    <div class="card float-target">
-      <h2>Interesses</h2>
-      <div class="tags">
-        <span class="tag">Python / FastAPI</span>
-        <span class="tag">Go (Gin)</span>
-        <span class="tag">Node.js</span>
-        <span class="tag">Kubernetes</span>
-        <span class="tag">AI Agents</span>
-        <span class="tag">LangChain</span>
-        <span class="tag">WebGL</span>
-        <span class="tag">Unity / C#</span>
-        <span class="tag">Cybersecurity</span>
-        <span class="tag">Café ☕</span>
+    <!-- Stack -->
+    <section class="section">
+      <div class="section-header float-target">
+        <span class="mono section-num">[03]</span>
+        <span class="section-title">STACK</span>
+        <div class="section-rule"></div>
       </div>
-    </div>
 
-    <div id="bounceCounter" class="bounce-counter">
-      <span class="count" id="bounceCount">0</span>
-      <span class="label">bounces</span>
-    </div>
+      <div class="tags-grid float-target">
+        <span class="tag-item"><span class="tag-dollar">$</span>python / fastapi</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>go (gin)</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>node.js</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>kubernetes</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>ai agents</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>langchain</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>webgl</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>unity / c#</span>
+        <span class="tag-item"><span class="tag-dollar">$</span>cybersecurity</span>
+        <span class="tag-item tag-special"><span class="tag-dollar">$</span>caf&eacute; &#x2615;</span>
+      </div>
+    </section>
 
-    <div class="btn-container">
-      <button id="gravityBtn">&#x1F680; Desligar a Gravidade</button>
-    </div>
+    <!-- Gravity -->
+    <section class="gravity-section">
+      <div class="section-header float-target">
+        <span class="mono section-num">[04]</span>
+        <span class="section-title">PROTOCOLO DE EMERG&Ecirc;NCIA</span>
+        <div class="section-rule"></div>
+      </div>
 
-    <footer>
-      <p>feito com &#x1F4BB; e muito caf&eacute; &middot; Computa&ccedil;&atilde;o Gr&aacute;fica</p>
-    </footer>
+      <div class="gravity-wrap">
+        <button id="gravityBtn" class="gravity-btn">
+          <span class="g-label-top" id="gLabelTop">ATEN&Ccedil;&Atilde;O: A&Ccedil;&Atilde;O IRREVERS&Iacute;VEL</span>
+          <span class="g-main" id="gMain">DESLIGAR<br>GRAVIDADE</span>
+          <span class="g-label-bottom" id="gLabelBottom">clique para ativar protocolo</span>
+        </button>
+      </div>
+    </section>
+
   </main>
 
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <span class="mono">fredzolio@live.com</span>
+    <span class="footer-sep">&mdash;</span>
+    <span class="mono">github.com/fredzolio</span>
+    <span class="footer-sep">&mdash;</span>
+    <span class="mono">Computa&ccedil;&atilde;o Gr&aacute;fica / 2025</span>
+  </footer>
+
   <script>
-    // === STAGGERED ENTRANCE ===
-    document.querySelectorAll('.float-target').forEach(function (el, i) {
-      el.style.animationDelay = (i * 0.09) + 's';
+    // ── STAGGERED ENTRANCE ──────────────────────────────────────────
+    document.querySelectorAll('.float-target').forEach(function(el, i) {
+      el.style.animationDelay = (i * 0.07) + 's';
     });
 
-    // === AUDIO ENGINE (Web Audio API — sem arquivos externos) ===
+    // ── AUDIO ENGINE (Web Audio API – zero arquivos externos) ────────
     var audioCtx = null;
-
-    function getAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
+    function audio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       return audioCtx;
     }
 
-    function playTone(type, f0, f1, dur, vol, startDelay) {
-      var ctx = getAudio();
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      var t = ctx.currentTime + (startDelay || 0);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+    function tone(type, f0, f1, dur, vol, delay) {
+      var ctx = audio();
+      var osc = ctx.createOscillator(), gain = ctx.createGain();
+      var t = ctx.currentTime + (delay || 0);
+      osc.connect(gain); gain.connect(ctx.destination);
       osc.type = type;
       osc.frequency.setValueAtTime(f0, t);
       if (f1 !== f0) osc.frequency.exponentialRampToValueAtTime(f1, t + dur);
       gain.gain.setValueAtTime(vol, t);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      osc.start(t);
-      osc.stop(t + dur + 0.01);
+      osc.start(t); osc.stop(t + dur + 0.01);
     }
 
-    function playLaunch() {
-      playTone('sawtooth', 80, 900, 0.55, 0.22);
-      playTone('sine', 300, 1400, 0.35, 0.1, 0.05);
-      playTone('triangle', 60, 400, 0.6, 0.15, 0.1);
+    function sndLaunch() {
+      tone('sawtooth', 70,  950,  0.6,  0.20);
+      tone('sine',     280, 1500, 0.4,  0.10, 0.05);
+      tone('triangle', 55,  420,  0.65, 0.14, 0.12);
     }
 
-    function playLand() {
-      playTone('sine', 600, 55, 0.4, 0.28);
-      playTone('triangle', 250, 40, 0.35, 0.18, 0.05);
+    function sndLand() {
+      tone('sine',     650, 50,  0.45, 0.26);
+      tone('triangle', 260, 38,  0.38, 0.16, 0.06);
     }
 
-    var lastBounceSound = 0;
-    function playBounce(vx, vy) {
+    var lastBounce = 0;
+    function sndBounce(vx, vy) {
       var now = Date.now();
-      if (now - lastBounceSound < 90) return;
-      lastBounceSound = now;
-      var speed = Math.sqrt(vx * vx + vy * vy);
-      var freq = 300 + speed * 25;
-      playTone('sine', freq, freq * 0.4, 0.14, 0.18);
+      if (now - lastBounce < 85) return;
+      lastBounce = now;
+      var spd = Math.sqrt(vx * vx + vy * vy);
+      tone('sine', 280 + spd * 22, (280 + spd * 22) * 0.38, 0.13, 0.17);
     }
 
-    function playPhotoClick() {
-      playTone('sine', 440, 880, 0.12, 0.2);
-      playTone('sine', 880, 1760, 0.15, 0.12, 0.1);
-      playTone('triangle', 1760, 3520, 0.1, 0.07, 0.22);
+    function sndPhoto() {
+      tone('sine', 440,  900,  0.12, 0.18);
+      tone('sine', 900,  1800, 0.14, 0.12, 0.11);
+      tone('triangle', 1800, 3600, 0.10, 0.07, 0.24);
     }
 
-    // === CURSOR PARTICLE TRAIL ===
-    var lastParticleTime = 0;
-    var particleColors = ['#1a1a1a', '#555', '#888', '#333', '#111'];
-
-    document.addEventListener('mousemove', function (e) {
+    // ── CURSOR PARTICLE TRAIL ────────────────────────────────────────
+    var lastPt = 0;
+    document.addEventListener('mousemove', function(e) {
       var now = Date.now();
-      if (now - lastParticleTime < 35) return;
-      lastParticleTime = now;
-
+      if (now - lastPt < 32) return;
+      lastPt = now;
       var p = document.createElement('div');
       p.className = 'cursor-particle';
-      var size = 4 + Math.random() * 6;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.left = e.clientX + 'px';
-      p.style.top = e.clientY + 'px';
-      p.style.background = particleColors[Math.floor(Math.random() * particleColors.length)];
+      var sz = 3 + Math.random() * 6;
+      p.style.cssText = 'width:' + sz + 'px;height:' + sz + 'px;left:' + e.clientX + 'px;top:' + e.clientY + 'px;';
       document.body.appendChild(p);
-      setTimeout(function () { if (p.parentNode) p.parentNode.removeChild(p); }, 750);
+      setTimeout(function() { p.parentNode && p.parentNode.removeChild(p); }, 850);
     });
 
-    // === PHOTO EASTER EGG ===
+    // ── PHOTO EASTER EGG ─────────────────────────────────────────────
     var photo = document.getElementById('profilePhoto');
-    photo.addEventListener('click', function () {
+    photo.addEventListener('click', function() {
       if (photo.classList.contains('photo-spin')) return;
-      playPhotoClick();
+      sndPhoto();
       photo.classList.add('photo-spin');
-      photo.addEventListener('animationend', function handler() {
+      photo.addEventListener('animationend', function h() {
         photo.classList.remove('photo-spin');
-        photo.removeEventListener('animationend', handler);
+        photo.removeEventListener('animationend', h);
       });
     });
 
-    // === GRAVITY MODE ===
-    var btn = document.getElementById('gravityBtn');
-    var bounceCounter = document.getElementById('bounceCounter');
-    var bounceCountEl = document.getElementById('bounceCount');
-    var isGravityOff = false;
-    var objects = [];
-    var frameId;
-    var totalBounces = 0;
+    // ── GRAVITY MODE ─────────────────────────────────────────────────
+    var btn          = document.getElementById('gravityBtn');
+    var gMain        = document.getElementById('gMain');
+    var gTop         = document.getElementById('gLabelTop');
+    var gBottom      = document.getElementById('gLabelBottom');
+    var bounceWrap   = document.getElementById('bounceCounter');
+    var bounceCount  = document.getElementById('bounceCount');
+    var gravity      = false;
+    var objects      = [];
+    var frame;
+    var bounces      = 0;
 
-    btn.addEventListener('click', function () {
-      if (!isGravityOff) {
-        activateGravity();
-      } else {
-        deactivateGravity();
-      }
-    });
+    btn.addEventListener('click', function() { gravity ? land() : launch(); });
 
-    function activateGravity() {
-      playLaunch();
-      var targets = document.querySelectorAll('.float-target');
-      objects = [];
-      totalBounces = 0;
-      updateBounceDisplay();
+    function launch() {
+      sndLaunch();
+      bounces = 0; bounceCount.textContent = '0'; objects = [];
 
-      targets.forEach(function (el) {
-        var rect = el.getBoundingClientRect();
-        var vx = (Math.random() - 0.5) * 14;
-        var vy = (Math.random() - 0.5) * 14;
-        if (Math.abs(vx) < 3.5) vx = vx < 0 ? -4 : 4;
-        if (Math.abs(vy) < 3.5) vy = vy < 0 ? -4 : 4;
-
-        var obj = {
-          el: el,
-          x: rect.left, y: rect.top,
-          w: rect.width, h: rect.height,
-          vx: vx, vy: vy,
-          rotation: 0,
-          angularVelocity: (Math.random() - 0.5) * 3
-        };
-
-        el.style.position = 'fixed';
-        el.style.left = obj.x + 'px';
-        el.style.top = obj.y + 'px';
-        el.style.width = obj.w + 'px';
-        el.style.margin = '0';
-        el.style.zIndex = '100';
-        el.style.transition = 'none';
-        el.style.transformOrigin = 'center center';
-        objects.push(obj);
+      document.querySelectorAll('.float-target').forEach(function(el) {
+        var r  = el.getBoundingClientRect();
+        var vx = (Math.random() - 0.5) * 16;
+        var vy = (Math.random() - 0.5) * 16;
+        if (Math.abs(vx) < 4) vx = vx < 0 ? -4.5 : 4.5;
+        if (Math.abs(vy) < 4) vy = vy < 0 ? -4.5 : 4.5;
+        el.style.cssText += ';position:fixed;left:' + r.left + 'px;top:' + r.top +
+          'px;width:' + r.width + 'px;margin:0;z-index:100;transition:none;transform-origin:center;';
+        objects.push({ el: el, x: r.left, y: r.top, w: r.width, h: r.height,
+                       vx: vx, vy: vy, rot: 0, av: (Math.random() - 0.5) * 3.2 });
       });
 
       document.body.classList.add('gravity-off');
-      isGravityOff = true;
-      btn.textContent = '\uD83D\uDD27 Religar a Gravidade';
+      gravity = true;
+      gMain.innerHTML  = 'RELIGAR<br>GRAVIDADE';
+      gTop.textContent = 'PROTOCOLO ATIVO';
+      gBottom.textContent = 'clique para desativar';
       btn.classList.add('active');
+      setTimeout(function() { bounceWrap.classList.add('visible'); }, 280);
 
-      setTimeout(function () { bounceCounter.classList.add('visible'); }, 300);
-
-      function update() {
-        objects.forEach(function (obj) {
-          obj.x += obj.vx;
-          obj.y += obj.vy;
-          obj.rotation += obj.angularVelocity;
-
-          var bounced = false;
-
-          if (obj.x <= 0) {
-            obj.x = 0; obj.vx = Math.abs(obj.vx); bounced = true;
-          } else if (obj.x + obj.w >= window.innerWidth) {
-            obj.x = window.innerWidth - obj.w; obj.vx = -Math.abs(obj.vx); bounced = true;
+      (function tick() {
+        objects.forEach(function(o) {
+          o.x += o.vx; o.y += o.vy; o.rot += o.av;
+          var hit = false;
+          if (o.x <= 0)                       { o.x = 0;                          o.vx =  Math.abs(o.vx); hit = true; }
+          else if (o.x + o.w >= window.innerWidth)  { o.x = window.innerWidth - o.w;   o.vx = -Math.abs(o.vx); hit = true; }
+          if (o.y <= 0)                       { o.y = 0;                          o.vy =  Math.abs(o.vy); hit = true; }
+          else if (o.y + o.h >= window.innerHeight) { o.y = window.innerHeight - o.h; o.vy = -Math.abs(o.vy); hit = true; }
+          if (hit) {
+            bounces++;
+            bounceCount.textContent = bounces;
+            sndBounce(o.vx, o.vy);
+            o.el.classList.add('bounce-flash');
+            setTimeout(function() { o.el.classList.remove('bounce-flash'); }, 170);
           }
-
-          if (obj.y <= 0) {
-            obj.y = 0; obj.vy = Math.abs(obj.vy); bounced = true;
-          } else if (obj.y + obj.h >= window.innerHeight) {
-            obj.y = window.innerHeight - obj.h; obj.vy = -Math.abs(obj.vy); bounced = true;
-          }
-
-          if (bounced) {
-            totalBounces++;
-            updateBounceDisplay();
-            playBounce(obj.vx, obj.vy);
-            flashElement(obj.el);
-          }
-
-          obj.el.style.left = obj.x + 'px';
-          obj.el.style.top = obj.y + 'px';
-          obj.el.style.transform = 'rotate(' + obj.rotation + 'deg)';
+          o.el.style.left      = o.x + 'px';
+          o.el.style.top       = o.y + 'px';
+          o.el.style.transform = 'rotate(' + o.rot + 'deg)';
         });
-
-        frameId = requestAnimationFrame(update);
-      }
-
-      frameId = requestAnimationFrame(update);
+        frame = requestAnimationFrame(tick);
+      })();
     }
 
-    function deactivateGravity() {
-      cancelAnimationFrame(frameId);
-      playLand();
-
-      objects.forEach(function (obj) {
-        obj.el.style.position = '';
-        obj.el.style.left = '';
-        obj.el.style.top = '';
-        obj.el.style.width = '';
-        obj.el.style.margin = '';
-        obj.el.style.zIndex = '';
-        obj.el.style.transition = '';
-        obj.el.style.transform = '';
-        obj.el.style.transformOrigin = '';
+    function land() {
+      cancelAnimationFrame(frame);
+      sndLand();
+      objects.forEach(function(o) {
+        o.el.style.position = o.el.style.left = o.el.style.top = o.el.style.width =
+        o.el.style.margin = o.el.style.zIndex = o.el.style.transition =
+        o.el.style.transform = o.el.style.transformOrigin = '';
       });
-
       objects = [];
       document.body.classList.remove('gravity-off');
-      isGravityOff = false;
-      btn.textContent = '\uD83D\uDE80 Desligar a Gravidade';
+      gravity = false;
+      gMain.innerHTML  = 'DESLIGAR<br>GRAVIDADE';
+      gTop.textContent = 'ATEN\u00C7\u00C3O: A\u00C7\u00C3O IRREVERS\u00CDVEL';
+      gBottom.textContent = 'clique para ativar protocolo';
       btn.classList.remove('active');
-      bounceCounter.classList.remove('visible');
-    }
-
-    function updateBounceDisplay() {
-      bounceCountEl.textContent = totalBounces;
-    }
-
-    function flashElement(el) {
-      el.classList.add('bounce-flash');
-      setTimeout(function () { el.classList.remove('bounce-flash'); }, 160);
+      bounceWrap.classList.remove('visible');
     }
   </script>
 </body>
