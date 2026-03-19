@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frederico Zolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1 class="float-target">Frederico Zolio</h1>
+      <p class="subtitle float-target">Estudante de Computação Gráfica &middot; Desenvolvedor &middot; Humano</p>
+    </header>
+
+    <div class="divider"></div>
+
+    <section class="about">
+      <img class="float-target" src="public/img/frederico.png" alt="Foto de Frederico Zolio">
+
+      <p class="float-target">
+        Olá! Eu sou o Frederico, estudante de Computação Gráfica e entusiasta
+        de tecnologia. Passo boa parte do tempo transformando ideias abstratas
+        em pixels e polígonos, tentando entender por que aquela normal insiste
+        em apontar para o lado errado.
+      </p>
+
+      <p class="float-target">
+        Quando não estou depurando matrizes de transformação ou calculando
+        produtos vetoriais às 2 da manhã, gosto de explorar novas ferramentas,
+        ouvir música e consumir café em quantidades que nenhum profissional de
+        saúde recomendaria.
+      </p>
+
+      <p class="float-target">
+        Meu objetivo é criar experiências visuais que façam as pessoas pararem
+        e pensarem "como isso foi feito?" — e então explicar usando apenas
+        matemática, shaders e muita paciência.
+      </p>
+    </section>
+
+    <div class="card float-target">
+      <h2>Interesses</h2>
+      <div class="tags">
+        <span class="tag">WebGL</span>
+        <span class="tag">Computação Gráfica</span>
+        <span class="tag">Shaders</span>
+        <span class="tag">Desenvolvimento Web</span>
+        <span class="tag">Open Source</span>
+        <span class="tag">Matrizes 4x4</span>
+        <span class="tag">Café ☕</span>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button id="gravityBtn">&#x1F680; Desligar a Gravidade</button>
+    </div>
+
+    <footer>
+      <p>feito com &#x1F4BB; e muito caf&eacute; &middot; Computa&ccedil;&atilde;o Gr&aacute;fica</p>
+    </footer>
+  </main>
+
+  <script>
+    var btn = document.getElementById('gravityBtn');
+    var isGravityOff = false;
+    var objects = [];
+    var frameId;
+
+    btn.addEventListener('click', function () {
+      if (!isGravityOff) {
+        activateGravity();
+      } else {
+        deactivateGravity();
+      }
+    });
+
+    function activateGravity() {
+      var targets = document.querySelectorAll('.float-target');
+      objects = [];
+
+      targets.forEach(function (el) {
+        var rect = el.getBoundingClientRect();
+
+        var vx = (Math.random() - 0.5) * 12;
+        var vy = (Math.random() - 0.5) * 12;
+        if (Math.abs(vx) < 3) vx = vx < 0 ? -3.5 : 3.5;
+        if (Math.abs(vy) < 3) vy = vy < 0 ? -3.5 : 3.5;
+
+        var obj = {
+          el: el,
+          x: rect.left,
+          y: rect.top,
+          w: rect.width,
+          h: rect.height,
+          vx: vx,
+          vy: vy,
+          rotation: 0,
+          angularVelocity: (Math.random() - 0.5) * 2.5
+        };
+
+        el.style.position = 'fixed';
+        el.style.left = obj.x + 'px';
+        el.style.top = obj.y + 'px';
+        el.style.width = obj.w + 'px';
+        el.style.margin = '0';
+        el.style.zIndex = '100';
+        el.style.transition = 'none';
+        el.style.transformOrigin = 'center center';
+
+        objects.push(obj);
+      });
+
+      document.body.classList.add('gravity-off');
+      isGravityOff = true;
+      btn.textContent = '\uD83D\uDD27 Religar a Gravidade';
+      btn.classList.add('active');
+
+      function update() {
+        objects.forEach(function (obj) {
+          obj.x += obj.vx;
+          obj.y += obj.vy;
+          obj.rotation += obj.angularVelocity;
+
+          if (obj.x <= 0) {
+            obj.x = 0;
+            obj.vx = Math.abs(obj.vx);
+          } else if (obj.x + obj.w >= window.innerWidth) {
+            obj.x = window.innerWidth - obj.w;
+            obj.vx = -Math.abs(obj.vx);
+          }
+
+          if (obj.y <= 0) {
+            obj.y = 0;
+            obj.vy = Math.abs(obj.vy);
+          } else if (obj.y + obj.h >= window.innerHeight) {
+            obj.y = window.innerHeight - obj.h;
+            obj.vy = -Math.abs(obj.vy);
+          }
+
+          obj.el.style.left = obj.x + 'px';
+          obj.el.style.top = obj.y + 'px';
+          obj.el.style.transform = 'rotate(' + obj.rotation + 'deg)';
+        });
+
+        frameId = requestAnimationFrame(update);
+      }
+
+      frameId = requestAnimationFrame(update);
+    }
+
+    function deactivateGravity() {
+      cancelAnimationFrame(frameId);
+
+      objects.forEach(function (obj) {
+        obj.el.style.position = '';
+        obj.el.style.left = '';
+        obj.el.style.top = '';
+        obj.el.style.width = '';
+        obj.el.style.margin = '';
+        obj.el.style.zIndex = '';
+        obj.el.style.transition = '';
+        obj.el.style.transform = '';
+        obj.el.style.transformOrigin = '';
+      });
+
+      objects = [];
+      document.body.classList.remove('gravity-off');
+      isGravityOff = false;
+      btn.textContent = '\uD83D\uDE80 Desligar a Gravidade';
+      btn.classList.remove('active');
+    }
+  </script>
+</body>
+</html>
