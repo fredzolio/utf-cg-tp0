@@ -16,7 +16,7 @@
     <div class="divider"></div>
 
     <section class="about">
-      <img class="float-target" src="public/img/frederico.png" alt="Foto de Frederico Zolio">
+      <img id="profilePhoto" class="float-target" src="public/img/frederico.png" alt="Foto de Frederico Zolio">
 
       <p class="float-target">
         Olá! Sou o Frederico, estudante de Engenharia da Computação no CEFET-MG e,
@@ -34,10 +34,9 @@
       </p>
 
       <p class="float-target">
-        Antes de entrar no mundo dos shaders e WebGL, já passei por
+        Antes de entrar no mundo dos shaders e WebGL nessa matéria, já passei por
         desenvolvimento de jogos em Unity/C#, segurança cibernética e até
-        vendas em empresa júnior. Poliglota em idiomas (PT, EN, ES) e em
-        linguagens de programação — meu próximo desafio é transformar vértices
+        vendas em empresa júnior. Meu próximo desafio é transformar vértices
         e fragmentos em algo que faça o professor dar 10.
       </p>
     </section>
@@ -58,6 +57,11 @@
       </div>
     </div>
 
+    <div id="bounceCounter" class="bounce-counter">
+      <span class="count" id="bounceCount">0</span>
+      <span class="label">bounces</span>
+    </div>
+
     <div class="btn-container">
       <button id="gravityBtn">&#x1F680; Desligar a Gravidade</button>
     </div>
@@ -68,10 +72,105 @@
   </main>
 
   <script>
+    // === STAGGERED ENTRANCE ===
+    document.querySelectorAll('.float-target').forEach(function (el, i) {
+      el.style.animationDelay = (i * 0.09) + 's';
+    });
+
+    // === AUDIO ENGINE (Web Audio API — sem arquivos externos) ===
+    var audioCtx = null;
+
+    function getAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    function playTone(type, f0, f1, dur, vol, startDelay) {
+      var ctx = getAudio();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      var t = ctx.currentTime + (startDelay || 0);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = type;
+      osc.frequency.setValueAtTime(f0, t);
+      if (f1 !== f0) osc.frequency.exponentialRampToValueAtTime(f1, t + dur);
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      osc.start(t);
+      osc.stop(t + dur + 0.01);
+    }
+
+    function playLaunch() {
+      playTone('sawtooth', 80, 900, 0.55, 0.22);
+      playTone('sine', 300, 1400, 0.35, 0.1, 0.05);
+      playTone('triangle', 60, 400, 0.6, 0.15, 0.1);
+    }
+
+    function playLand() {
+      playTone('sine', 600, 55, 0.4, 0.28);
+      playTone('triangle', 250, 40, 0.35, 0.18, 0.05);
+    }
+
+    var lastBounceSound = 0;
+    function playBounce(vx, vy) {
+      var now = Date.now();
+      if (now - lastBounceSound < 90) return;
+      lastBounceSound = now;
+      var speed = Math.sqrt(vx * vx + vy * vy);
+      var freq = 300 + speed * 25;
+      playTone('sine', freq, freq * 0.4, 0.14, 0.18);
+    }
+
+    function playPhotoClick() {
+      playTone('sine', 440, 880, 0.12, 0.2);
+      playTone('sine', 880, 1760, 0.15, 0.12, 0.1);
+      playTone('triangle', 1760, 3520, 0.1, 0.07, 0.22);
+    }
+
+    // === CURSOR PARTICLE TRAIL ===
+    var lastParticleTime = 0;
+    var particleColors = ['#1a1a1a', '#555', '#888', '#333', '#111'];
+
+    document.addEventListener('mousemove', function (e) {
+      var now = Date.now();
+      if (now - lastParticleTime < 35) return;
+      lastParticleTime = now;
+
+      var p = document.createElement('div');
+      p.className = 'cursor-particle';
+      var size = 4 + Math.random() * 6;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = e.clientX + 'px';
+      p.style.top = e.clientY + 'px';
+      p.style.background = particleColors[Math.floor(Math.random() * particleColors.length)];
+      document.body.appendChild(p);
+      setTimeout(function () { if (p.parentNode) p.parentNode.removeChild(p); }, 750);
+    });
+
+    // === PHOTO EASTER EGG ===
+    var photo = document.getElementById('profilePhoto');
+    photo.addEventListener('click', function () {
+      if (photo.classList.contains('photo-spin')) return;
+      playPhotoClick();
+      photo.classList.add('photo-spin');
+      photo.addEventListener('animationend', function handler() {
+        photo.classList.remove('photo-spin');
+        photo.removeEventListener('animationend', handler);
+      });
+    });
+
+    // === GRAVITY MODE ===
     var btn = document.getElementById('gravityBtn');
+    var bounceCounter = document.getElementById('bounceCounter');
+    var bounceCountEl = document.getElementById('bounceCount');
     var isGravityOff = false;
     var objects = [];
     var frameId;
+    var totalBounces = 0;
 
     btn.addEventListener('click', function () {
       if (!isGravityOff) {
@@ -82,27 +181,26 @@
     });
 
     function activateGravity() {
+      playLaunch();
       var targets = document.querySelectorAll('.float-target');
       objects = [];
+      totalBounces = 0;
+      updateBounceDisplay();
 
       targets.forEach(function (el) {
         var rect = el.getBoundingClientRect();
-
-        var vx = (Math.random() - 0.5) * 12;
-        var vy = (Math.random() - 0.5) * 12;
-        if (Math.abs(vx) < 3) vx = vx < 0 ? -3.5 : 3.5;
-        if (Math.abs(vy) < 3) vy = vy < 0 ? -3.5 : 3.5;
+        var vx = (Math.random() - 0.5) * 14;
+        var vy = (Math.random() - 0.5) * 14;
+        if (Math.abs(vx) < 3.5) vx = vx < 0 ? -4 : 4;
+        if (Math.abs(vy) < 3.5) vy = vy < 0 ? -4 : 4;
 
         var obj = {
           el: el,
-          x: rect.left,
-          y: rect.top,
-          w: rect.width,
-          h: rect.height,
-          vx: vx,
-          vy: vy,
+          x: rect.left, y: rect.top,
+          w: rect.width, h: rect.height,
+          vx: vx, vy: vy,
           rotation: 0,
-          angularVelocity: (Math.random() - 0.5) * 2.5
+          angularVelocity: (Math.random() - 0.5) * 3
         };
 
         el.style.position = 'fixed';
@@ -113,7 +211,6 @@
         el.style.zIndex = '100';
         el.style.transition = 'none';
         el.style.transformOrigin = 'center center';
-
         objects.push(obj);
       });
 
@@ -122,26 +219,33 @@
       btn.textContent = '\uD83D\uDD27 Religar a Gravidade';
       btn.classList.add('active');
 
+      setTimeout(function () { bounceCounter.classList.add('visible'); }, 300);
+
       function update() {
         objects.forEach(function (obj) {
           obj.x += obj.vx;
           obj.y += obj.vy;
           obj.rotation += obj.angularVelocity;
 
+          var bounced = false;
+
           if (obj.x <= 0) {
-            obj.x = 0;
-            obj.vx = Math.abs(obj.vx);
+            obj.x = 0; obj.vx = Math.abs(obj.vx); bounced = true;
           } else if (obj.x + obj.w >= window.innerWidth) {
-            obj.x = window.innerWidth - obj.w;
-            obj.vx = -Math.abs(obj.vx);
+            obj.x = window.innerWidth - obj.w; obj.vx = -Math.abs(obj.vx); bounced = true;
           }
 
           if (obj.y <= 0) {
-            obj.y = 0;
-            obj.vy = Math.abs(obj.vy);
+            obj.y = 0; obj.vy = Math.abs(obj.vy); bounced = true;
           } else if (obj.y + obj.h >= window.innerHeight) {
-            obj.y = window.innerHeight - obj.h;
-            obj.vy = -Math.abs(obj.vy);
+            obj.y = window.innerHeight - obj.h; obj.vy = -Math.abs(obj.vy); bounced = true;
+          }
+
+          if (bounced) {
+            totalBounces++;
+            updateBounceDisplay();
+            playBounce(obj.vx, obj.vy);
+            flashElement(obj.el);
           }
 
           obj.el.style.left = obj.x + 'px';
@@ -157,6 +261,7 @@
 
     function deactivateGravity() {
       cancelAnimationFrame(frameId);
+      playLand();
 
       objects.forEach(function (obj) {
         obj.el.style.position = '';
@@ -175,6 +280,16 @@
       isGravityOff = false;
       btn.textContent = '\uD83D\uDE80 Desligar a Gravidade';
       btn.classList.remove('active');
+      bounceCounter.classList.remove('visible');
+    }
+
+    function updateBounceDisplay() {
+      bounceCountEl.textContent = totalBounces;
+    }
+
+    function flashElement(el) {
+      el.classList.add('bounce-flash');
+      setTimeout(function () { el.classList.remove('bounce-flash'); }, 160);
     }
   </script>
 </body>
